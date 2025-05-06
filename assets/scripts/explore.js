@@ -8,6 +8,7 @@ function init() {
   const voiceSelect = document.getElementById('voice-select');
   const talkButton = document.querySelector('#explore > button'); 
   const textToSpeak = document.getElementById('text-to-speak');
+  const image = document.querySelector('#explore > img');
   let selectedVoice = voiceSelect.value;
   let voices = []
 
@@ -32,6 +33,13 @@ function init() {
   function handleTalkButton() {
     if (selectedVoice !== 'select') {
         const utterance = new SpeechSynthesisUtterance(textToSpeak.value);
+        utterance.onstart = () => {
+          image.src = 'assets/images/smiling-open.png';
+        };
+    
+        utterance.onend = () => {
+          image.src = 'assets/images/smiling.png';
+        };
         utterance.voice = voices.find(voice => voice.name === selectedVoice);
         synth.speak(utterance);
     }
@@ -48,5 +56,5 @@ function init() {
   });
 
   talkButton.addEventListener('click', handleTalkButton);
-  
+  image.src = smilingImagePath;
 }
