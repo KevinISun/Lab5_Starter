@@ -14,7 +14,12 @@ function init() {
 
     function handleHornChange() {
         selectedHorn = hornSelect.value;
-      
+        if (selectedHorn === 'select') {
+            hornImage.src = 'assets/images/no-image.png';
+        }
+        else {
+            hornImage.src = `assets/images/${selectedHorn}.svg`;
+        }
         const audioPath = `assets/audio/${selectedHorn}.mp3`; 
         const altText = `${selectedHorn.replace('-', ' ')} horn`; 
        
