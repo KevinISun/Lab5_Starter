@@ -6,6 +6,7 @@ function init() {
   // TODO
   const synth = window.speechSynthesis;
   const voiceSelect = document.getElementById('voice-select');
+  let voices = []
 
   function populateVoiceList() {
     voices = synth.getVoices();
@@ -23,7 +24,13 @@ function init() {
       voiceSelect.appendChild(option);
     }
   }
+  
+  if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = populateVoiceList;
+  }
+
   voiceSelect.addEventListener('change', handleHornChange);
   populateVoiceList();
+  
 
 }
